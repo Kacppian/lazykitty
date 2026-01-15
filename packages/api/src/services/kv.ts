@@ -48,9 +48,11 @@ export class LocalKVService implements KVService {
       this.data = JSON.parse(content) as LocalKVData;
     } catch {
       // File doesn't exist, create default
+      // Use API_KEY from environment or default dev key
+      const defaultApiKey = process.env['API_KEY'] ?? 'lk_test_dev_key_12345';
       this.data = {
         builds: {},
-        apiKeys: ['lk_test_dev_key_12345'], // Default test key
+        apiKeys: [defaultApiKey],
         buildLock: false,
       };
       await this.save();

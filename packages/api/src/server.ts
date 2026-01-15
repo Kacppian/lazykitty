@@ -23,6 +23,7 @@ const HOST = process.env['HOST'] ?? 'localhost';
 const STORAGE_PATH = process.env['STORAGE_PATH'] ?? join(MONOREPO_ROOT, 'storage');
 const KV_PATH = process.env['KV_PATH'] ?? join(MONOREPO_ROOT, 'storage', 'kv.json');
 const BUILDER_TYPE = (process.env['BUILDER_TYPE'] ?? 'process') as 'docker' | 'process';
+const API_KEY = process.env['API_KEY'] ?? 'lk_test_dev_key_12345';
 
 // Initialize services
 const baseUrl = `http://${HOST}:${PORT}`;
@@ -34,16 +35,19 @@ initBuilder(BUILDER_TYPE, STORAGE_PATH);
 app.use('/storage/*', serveStatic({ root: './' }));
 
 // Start server
+const apiKeyDisplay = API_KEY === 'lk_test_dev_key_12345' 
+  ? 'lk_test_dev_key_12345 (default)' 
+  : `${API_KEY.slice(0, 8)}... (from env)`;
+
 console.log(`
 ┌─────────────────────────────────────────────────┐
 │                                                 │
 │   🐱 LazyKitty API Server                       │
 │                                                 │
 │   Local:   http://${HOST}:${PORT.toString().padEnd(24)}│
-│   Storage: ${STORAGE_PATH.padEnd(36)}│
+│   Storage: ${STORAGE_PATH.slice(0, 36).padEnd(36)}│
 │   Builder: ${BUILDER_TYPE.padEnd(36)}│
-│                                                 │
-│   Test API Key: lk_test_dev_key_12345           │
+│   API Key: ${apiKeyDisplay.padEnd(36)}│
 │                                                 │
 └─────────────────────────────────────────────────┘
 `);

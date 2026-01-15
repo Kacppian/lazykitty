@@ -1,0 +1,52 @@
+# LazyKitty Local Development
+#
+# Usage:
+#   docker-compose up        - Start API server
+#   docker-compose up -d     - Start in background
+#   docker-compose down      - Stop everything
+#   docker-compose logs -f   - View logs
+#
+# The builder runs as a separate process (not in docker-compose)
+# because it needs to be spawned on-demand for each build.
+
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: packages/api/Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./storage:/app/storage
+      - ./packages:/app/packages:ro
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - HOST=0.0.0.0
+      - STORAGE_PATH=/app/storage
+      - KV_PATH=/app/storage/kv.json
+      - BUILDER_TYPE=process
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Optional: ngrok tunnel for Expo Go testing
+  # Requires NGROK_AUTHTOKEN environment variable
+  ngrok:
+    image: ngrok/ngrok:latest
+    command: http api:3000 --log stdout
+    ports:
+      - "4040:4040"
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN:-}
+    depends_on:
+      - api
+    profiles:
+      - tunnel
+
+volumes:
+  storage:

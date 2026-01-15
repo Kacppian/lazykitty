@@ -1,0 +1,14 @@
+# Fly.io configuration for LazyKitty Builder
+# This is used for production deployments
+
+app = "lazykitty-builder"
+primary_region = "sjc"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+
+# Machines are created on-demand by the API
+# No persistent services needed

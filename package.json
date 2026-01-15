@@ -1,0 +1,25 @@
+{
+  "name": "lazykitty-monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Build infrastructure for Expo apps - like EAS but self-hosted",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "tsx scripts/dev.ts",
+    "dev:tunnel": "tsx scripts/dev.ts --tunnel",
+    "dev:api": "turbo dev --filter=@lazykitty/api",
+    "dev:cli": "turbo dev --filter=lazykitty",
+    "seed": "tsx scripts/seed.ts",
+    "lint": "turbo lint",
+    "clean": "turbo clean && rm -rf node_modules storage"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.2"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

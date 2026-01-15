@@ -19,7 +19,7 @@ Deploy your Expo updates to your own infrastructure and serve them directly to E
 #### Docker Compose (Recommended for VPS)
 
 ```bash
-git clone https://github.com/yourusername/lazykitty.git
+git clone https://github.com/Kacppian/lazykitty.git
 cd lazykitty
 docker-compose up -d
 ```

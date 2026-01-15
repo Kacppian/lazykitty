@@ -1,6 +1,15 @@
-# LazyKitty
+<p align="center">
+  <img src="logo.png" alt="LazyKitty Logo" width="200" />
+  <br />
+  <strong>LazyKitty</strong>
+</p>
 
-Self-hosted build infrastructure for Expo apps. A free, open-source alternative to [EAS (Expo Application Services)](https://expo.dev/eas).
+<p align="center">
+  Self-hosted build infrastructure for Expo apps.<br />
+  A free, open-source alternative to <a href="https://expo.dev/eas">EAS (Expo Application Services)</a>.
+</p>
+
+---
 
 Deploy your Expo updates to your own infrastructure and serve them directly to Expo Go or your production app.
 
